@@ -1,0 +1,88 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <title>Thêm/Sửa Lớp Học</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 0;
+            padding: 0;
+            background-color: #f8f9fa;
+        }
+        .container {
+            max-width: 600px;
+            margin: 50px auto;
+            background: white;
+            padding: 20px;
+            border-radius: 8px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+        }
+        h2 {
+            text-align: center;
+            color: #007bff;
+            margin-bottom: 20px;
+        }
+        .form-label {
+            font-weight: bold;
+        }
+        .form-control {
+            width: 100%;
+            padding: 8px;
+            border: 1px solid #ced4da;
+            border-radius: 5px;
+            font-size: 1rem;
+        }
+        .btn {
+            padding: 10px 15px;
+            font-size: 1rem;
+            border-radius: 5px;
+            text-decoration: none;
+            color: white;
+            display: inline-block;
+            text-align: center;
+            cursor: pointer;
+            transition: background 0.3s ease;
+        }
+        .btn-success {
+            background-color: #28a745;
+            border: none;
+        }
+        .btn-success:hover {
+            background-color: #218838;
+        }
+        .btn-secondary {
+            background-color: #6c757d;
+            border: none;
+        }
+        .btn-secondary:hover {
+            background-color: #545b62;
+        }
+    </style>
+</head>
+<body>
+<div th:replace="layout/header :: body"></div>
+
+<div class="container">
+    <h2 th:text="${classroom.id} ? 'Chỉnh sửa lớp học' : 'Thêm lớp học mới'"></h2>
+
+    <form th:action="@{/classroom/add}" th:object="${classroom}" method="post">
+        <input type="hidden" th:field="*{id}">
+
+        <div class="mb-3">
+            <label class="form-label">Tên lớp:</label>
+            <input type="text" class="form-control" th:field="*{name}" required>
+        </div>
+
+        <div class="mb-3">
+            <label class="form-label">Số lượng tối đa:</label>
+            <input type="number" class="form-control" th:field="*{maxStudents}" required>
+        </div>
+
+        <button type="submit" class="btn btn-success">Lưu</button>
+        <a th:href="@{/classroom}" class="btn btn-secondary">Hủy</a>
+    </form>
+</div>
+
+<div th:replace="layout/footer :: body"></div>
+</body>
+</html>

@@ -1,0 +1,107 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <title>Thêm/Sửa Sinh Viên</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f8f9fa;
+            margin: 0;
+            padding: 0;
+        }
+        .container {
+            max-width: 600px;
+            margin: 40px auto;
+            background: white;
+            padding: 20px;
+            box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.1);
+            border-radius: 10px;
+        }
+        h2 {
+            text-align: center;
+            margin-bottom: 20px;
+        }
+        .form-label {
+            font-weight: bold;
+            margin-bottom: 5px;
+            display: block;
+        }
+        .form-control {
+            width: 100%;
+            padding: 10px;
+            margin-bottom: 15px;
+            border: 1px solid #ced4da;
+            border-radius: 5px;
+            font-size: 16px;
+        }
+        select.form-control {
+            height: 40px;
+        }
+        .btn {
+            padding: 10px 15px;
+            text-decoration: none;
+            display: inline-block;
+            border-radius: 5px;
+            font-size: 16px;
+            cursor: pointer;
+            border: none;
+        }
+        .btn-success {
+            background-color: #28a745;
+            color: white;
+        }
+        .btn-secondary {
+            background-color: #6c757d;
+            color: white;
+        }
+        .btn:hover {
+            opacity: 0.8;
+        }
+    </style>
+</head>
+<body>
+
+<div class="container mt-4">
+    <h2 th:text="${student.id} ? 'Chỉnh sửa thông tin sinh viên' : 'Thêm sinh viên mới'"></h2>
+
+    <!-- 🛠️ Thêm phần hiển thị thông báo lỗi -->
+    <div th:if="${error}" class="alert alert-danger" style="color: red; padding: 10px; border: 1px solid red; border-radius: 5px; margin-bottom: 15px;">
+        <p th:text="${error}"></p>
+    </div>
+
+    <form th:action="@{/student/add}" th:object="${student}" method="post">
+        <input type="hidden" th:field="*{id}">
+
+        <div>
+            <label class="form-label">Họ và tên:</label>
+            <input type="text" class="form-control" th:field="*{name}" required>
+        </div>
+
+        <div>
+            <label class="form-label">Email:</label>
+            <input type="email" class="form-control" th:field="*{email}" required>
+        </div>
+
+        <div>
+            <label class="form-label">Số điện thoại:</label>
+            <input type="text" class="form-control" th:field="*{phone}">
+        </div>
+
+        <div>
+            <label class="form-label">Lớp học:</label>
+            <select class="form-control" th:field="*{classroom.id}">
+                <option value="">-- Chọn lớp học --</option>
+                <option th:each="cls : ${classrooms}"
+                        th:value="${cls.id}"
+                        th:text="${cls.name}"
+                        th:selected="${cls.id == student.classroom.id}"></option>
+            </select>
+        </div>
+
+        <button type="submit" class="btn btn-success">Lưu</button>
+        <a th:href="@{/student}" class="btn btn-secondary">Hủy</a>
+    </form>
+</div>
+
+</body>
+</html>

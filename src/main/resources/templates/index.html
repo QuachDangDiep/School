@@ -1,0 +1,68 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <title>Quản lý Trường học</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f8f9fa;
+            margin: 0;
+            padding: 0;
+        }
+        .container {
+            max-width: 800px;
+            margin: 50px auto;
+            background: white;
+            padding: 30px;
+            border-radius: 8px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+        }
+        h1 {
+            color: #007bff;
+            font-size: 2rem;
+        }
+        p {
+            font-size: 1.2rem;
+            color: #6c757d;
+        }
+        .btn-lg {
+            padding: 12px 24px;
+            font-size: 1.2rem;
+            border-radius: 8px;
+            margin: 10px;
+            text-decoration: none;
+            display: inline-block;
+        }
+        .btn-primary {
+            background-color: #007bff;
+            border: none;
+            color: white;
+        }
+        .btn-primary:hover {
+            background-color: #0056b3;
+        }
+        .btn-secondary {
+            background-color: #6c757d;
+            border: none;
+            color: white;
+        }
+        .btn-secondary:hover {
+            background-color: #545b62;
+        }
+    </style>
+</head>
+<body>
+<div th:replace="layout/header :: body"></div>
+
+<div class="container text-center">
+    <h1>Hệ thống quản lý trường học</h1>
+    <p>Chọn chức năng bên dưới để quản lý</p>
+    <div class="mt-4">
+        <a class="btn btn-primary btn-lg" th:href="@{/classroom}">Quản lý lớp học</a>
+        <a class="btn btn-secondary btn-lg" th:href="@{/student}">Quản lý sinh viên</a>
+    </div>
+</div>
+
+<div th:replace="layout/footer :: body"></div>
+</body>
+</html>

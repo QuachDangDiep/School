@@ -1,0 +1,98 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <title>Danh sách lớp học</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f8f9fa;
+            margin: 0;
+            padding: 0;
+        }
+        .container {
+            max-width: 900px;
+            margin: 20px auto;
+            background: white;
+            padding: 20px;
+            border-radius: 8px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+        }
+        h2 {
+            color: #343a40;
+            text-align: center;
+        }
+        .btn-success, .btn-warning, .btn-danger, .btn-primary {
+            padding: 5px 10px;
+            border: none;
+            color: white;
+            text-decoration: none;
+            display: inline-block;
+            border-radius: 4px;
+        }
+        .btn-success { background-color: #28a745; }
+        .btn-warning { background-color: #ffc107; }
+        .btn-danger { background-color: #dc3545; }
+        .btn-primary { background-color: #007bff; }
+        .table {
+            width: 100%;
+            margin-top: 20px;
+            border-collapse: collapse;
+        }
+        .table th, .table td {
+            padding: 10px;
+            border: 1px solid #dee2e6;
+            text-align: center;
+        }
+        .table th {
+            background-color: #007bff;
+            color: white;
+        }
+        .table tr:nth-child(even) {
+            background-color: #f2f2f2;
+        }
+        ul {
+            padding: 0;
+            margin: 0;
+            list-style: none;
+        }
+    </style>
+</head>
+<body>
+<div th:replace="layout/header :: body"></div>
+
+<div class="container">
+    <h2>Danh sách lớp học</h2>
+    <a class="btn btn-success mb-3" th:href="@{/classroom/add}">Thêm lớp học</a>
+    <table class="table table-bordered">
+        <thead>
+        <tr>
+            <th>ID</th>
+            <th>Tên lớp</th>
+            <th>Số lượng tối đa</th>
+            <th>Sinh viên</th>
+            <th>Hành động</th>
+        </tr>
+        </thead>
+        <tbody>
+        <tr th:each="classroom : ${classrooms}">
+            <td th:text="${classroom.id}"></td>
+            <td th:text="${classroom.name}"></td>
+            <td th:text="${classroom.maxStudents}"></td>
+            <td>
+                <ul>
+                    <li th:each="student : ${classroom.students}" th:text="${student.name}"></li>
+                </ul>
+            </td>
+            <td>
+                <a class="btn btn-warning" th:href="@{/classroom/edit/{id}(id=${classroom.id})}">Sửa</a>
+                <a class="btn btn-danger" th:href="@{/classroom/delete/{id}(id=${classroom.id})}" onclick="return confirm('Xác nhận xoá?')">Xoá</a>
+                <a class="btn btn-primary" th:href="@{/classroom/transfer/{id}(id=${classroom.id})}">Chuyển sinh viên</a>
+            </td>
+        </tr>
+        </tbody>
+    </table>
+</div>
+
+<div th:replace="layout/footer :: body"></div>
+</body>
+</html>
